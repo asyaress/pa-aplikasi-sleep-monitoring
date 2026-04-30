@@ -7,5 +7,7 @@
 void initAppData(AppData& data);
 void loadUsersFromFile(AppData& data, const std::string& filePath);
 bool saveUsersToFile(const AppData& data, const std::string& filePath);
+void loadSleepRecordsFromFile(AppData& data, const std::string& filePath);
+bool saveSleepRecordsToFile(const AppData& data, const std::string& filePath);
 
 #endif
