@@ -4,7 +4,7 @@
 #include "user.h"
 
 void tampilkanJudul();
-void menuPasien(const AppData& data, int userIndex);
+void menuPasien(AppData& data, int userIndex, const std::string& sleepRecordFilePath);
 void menuDokter(AppData& data, const std::string& userFilePath);
 
 #endif

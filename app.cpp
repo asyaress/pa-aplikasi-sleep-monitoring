@@ -10,10 +10,12 @@ using namespace std;
 
 void jalankanAplikasi() {
     const string USER_FILE_PATH = "users.txt";
+    const string SLEEP_RECORD_FILE_PATH = "sleep_records.txt";
 
     AppData data;
     initAppData(data);
     loadUsersFromFile(data, USER_FILE_PATH);
+    loadSleepRecordsFromFile(data, SLEEP_RECORD_FILE_PATH);
 
     int pilihan;
     do {
@@ -37,7 +39,7 @@ void jalankanAplikasi() {
             case 1: {
                 int userIndex = loginPasien(data);
                 if (userIndex != -1) {
-                    menuPasien(data, userIndex);
+                    menuPasien(data, userIndex, SLEEP_RECORD_FILE_PATH);
                 }
                 break;
             }
