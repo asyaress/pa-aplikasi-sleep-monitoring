@@ -45,7 +45,7 @@ void jalankanAplikasi() {
             }
             case 2:
                 if (loginDokter()) {
-                    menuDokter(data, USER_FILE_PATH);
+                    menuDokter(data, USER_FILE_PATH, SLEEP_RECORD_FILE_PATH);
                 }
                 break;
             case 3:
