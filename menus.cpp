@@ -601,7 +601,7 @@ void menuPasien(AppData& data, int userIndex, const string& sleepRecordFilePath)
 
     do {
         cout << "\n========== MENU PASIEN ==========";
-        cout << "\nLogin sebagai : " << data.users[userIndex].nama;
+        cout << "\nLogin sebagai : " << data.users[userIndex].nama << endl;
         cout << "\n1. Lihat profil singkat";
         cout << "\n2. Isi jurnal malam";
         cout << "\n3. Input data setelah bangun";
