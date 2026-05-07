@@ -9,8 +9,8 @@
 using namespace std;
 
 void jalankanAplikasi() {
-    const string USER_FILE_PATH = "users.txt";
-    const string SLEEP_RECORD_FILE_PATH = "sleep_records.txt";
+    const string USER_FILE_PATH = "data/users.txt";
+    const string SLEEP_RECORD_FILE_PATH = "data/sleep_records.txt";
 
     AppData data;
     initAppData(data);

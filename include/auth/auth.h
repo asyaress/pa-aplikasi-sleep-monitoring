@@ -2,7 +2,7 @@
 #define AUTH_H
 
 #include <string>
-#include "../user.h"
+#include "user.h"
 
 bool usernameSudahAda(const AppData& data, const std::string& username);
 bool buatAkunPasienOlehDokter(AppData& data, const std::string& userFilePath);

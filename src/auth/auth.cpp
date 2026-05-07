@@ -1,8 +1,8 @@
-﻿#include "auth.h"
+﻿#include "auth/auth.h"
 
 #include <iostream>
 
-#include "../data_store.h"
+#include "data_store.h"
 
 using namespace std;
 
@@ -100,3 +100,5 @@ bool loginDokter() {
     cout << "\n[ERROR] Login dokter gagal. Username/password salah.\n";
     return false;
 }
+
+
