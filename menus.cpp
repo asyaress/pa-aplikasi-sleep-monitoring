@@ -343,6 +343,7 @@ int cariJurnal(const AppData& data, const string& usernamePasien) {
 void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath) {
     string usernamePasien = data.users[userIndex].username;
 
+    // Kumpulkan semua jurnal milik pasien ini
     int daftarIndex[MAX_SLEEP_RECORDS];
     int jumlah = 0;
 
@@ -379,6 +380,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
 
     SleepRecord& record = data.sleepRecords[daftarIndex[pilih - 1]];
 
+    // ── Sub-menu: bagian mana yang mau diedit ──
     cout << "\n--- EDIT JURNAL TANGGAL: " << record.tanggal << " ---\n";
     cout << "1. Edit jurnal malam (tanggal & catatan malam)\n";
     cout << "2. Edit data pagi (jam tidur, jam bangun, dll)\n";
@@ -396,7 +398,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
     cin.ignore(10000, '\n');
 
     if (pilihanEdit == 1) {
- 
+        // ── Edit jurnal malam ──
         cout << "\n--- EDIT JURNAL MALAM ---\n";
         cout << "Tanggal saat ini     : " << record.tanggal << "\n";
         cout << "Catatan saat ini     : " << record.catatanMalam << "\n";
@@ -441,6 +443,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
         string inputKualitas  = inputBarisMenu("Kualitas tidur baru (1-10) : ");
         string kondisiBaru   = inputBarisMenu("Kondisi bangun baru        : ");
 
+        // Validasi format jam jika diisi
         if (!jamTidurBaru.empty() && !formatJamValid(jamTidurBaru)) {
             cout << "\n[ERROR] Format jam mulai tidur harus HH:MM.\n";
             return;
@@ -450,6 +453,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
             return;
         }
 
+        // Parse angka jika diisi, validasi jika tidak kosong
         int terbangunBaru = record.jumlahTerbangun;
         if (!inputTerbangun.empty()) {
             try { terbangunBaru = stoi(inputTerbangun); } catch (...) {
@@ -486,9 +490,11 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
             return;
         }
 
+        // Tentukan nilai final (pakai nilai lama jika input kosong)
         string jamTidurFinal  = jamTidurBaru.empty()  ? record.jamMulaiTidurFinal : jamTidurBaru;
         string jamBangunFinal = jamBangunBaru.empty() ? record.jamBangun          : jamBangunBaru;
 
+        // Validasi WASO vs durasi tidur
         int durasiDasar = hitungSelisihMenit(konversiJamKeMenit(jamTidurFinal),
                                             konversiJamKeMenit(jamBangunFinal));
         if (terjagaBaru > durasiDasar) {
@@ -496,6 +502,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
             return;
         }
 
+        // Simpan ke record
         record.jamMulaiTidurFinal = jamTidurFinal;
         record.jamBangun          = jamBangunFinal;
         record.jumlahTerbangun    = terbangunBaru;
@@ -516,6 +523,7 @@ void editjurnal(AppData& data, int userIndex, const string& sleepRecordFilePath)
         cout << "\n[ERROR] Pilihan tidak valid.\n";
     }
 }
+
 
 
 void hapusdatajurnal(AppData& data, int userIndex, const string& sleepRecordFilePath) {
@@ -592,7 +600,7 @@ void menuPasien(AppData& data, int userIndex, const string& sleepRecordFilePath)
     int pilihan;
 
     do {
-        cout << "\n========== MENU PASIEN ==========" << endl;
+        cout << "\n========== MENU PASIEN ==========";
         cout << "\nLogin sebagai : " << data.users[userIndex].nama << endl;
         cout << "\n1. Lihat profil singkat";
         cout << "\n2. Isi jurnal malam";
@@ -650,9 +658,8 @@ void menuDokter(AppData& data, const string& userFilePath) {
     do {
         cout << "\n========== MENU DOKTER ==========";
         cout << "\n1. Buat akun pasien";
-        cout << "\n2. Lihat riwayat pasien";
+        cout << "\n2. Lihat jumlah pasien";
         cout << "\n3. Lihat daftar pasien";
-        cout << "\n5. Hapus akun pasien";
         cout << "\n4. Logout";
         cout << "\nPilihan: ";
         cin >> pilihan;
@@ -671,18 +678,17 @@ void menuDokter(AppData& data, const string& userFilePath) {
                 buatAkunPasienOlehDokter(data, userFilePath);
                 break;
             case 2:
+                cout << "\nTotal pasien terdaftar: " << data.userCount << "\n";
                 break;
             case 3:
                 tampilkanDaftarPasienSingkat(data);
                 break;
             case 4:
-                break;
-            case 5:
                 cout << "\nLogout dokter berhasil.\n";
                 break;
             default:
                 cout << "\n[ERROR] Menu tidak tersedia.\n";
                 break;
         }
-    } while (pilihan != 5);
+    } while (pilihan != 4);
 }
