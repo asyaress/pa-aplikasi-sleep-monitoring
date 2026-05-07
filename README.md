@@ -26,18 +26,18 @@ Aplikasi dirancang untuk membantu pengguna mencatat pola tidur harian, memantau 
 - Bahasa pemrograman: **C++**
 - Platform: **Console Application**
 - Metode pencatatan: **Sleep Diary (AASM)**
-- Penyimpanan data sementara: **File TXT (`users.txt`)**
+- Penyimpanan data sementara: **File TXT** di folder `data/`
 
 ## Struktur Kode (Modular)
-- `main.cpp`: entry point aplikasi.
-- `app.h` / `app.cpp`: alur menu utama aplikasi.
-- `user.h`: deklarasi `struct User`, `struct AppData`, dan konstanta kapasitas user.
-- `auth/auth.h` / `auth/auth.cpp`: pembuatan akun pasien oleh dokter, login pasien, login dokter.
-- `menus.h` / `menus.cpp`: tampilan menu pasien dan dokter.
-- `data_store.h` / `data_store.cpp`: load/save data pasien dari/ke file TXT.
+- `main.cpp`: entry point aplikasi (tetap di root).
+- `include/`: header project (`app.h`, `user.h`, `menus.h`, `data_store.h`, `auth/auth.h`).
+- `src/`: source utama (`app.cpp`, `menus.cpp`, `data_store.cpp`, `auth/auth.cpp`, `pasien/read.cpp`).
+- `data/`: data TXT (`users.txt`, `sleep_records.txt`).
+- `bin/`: output executable.
+- `misc/`: file pendukung/non-utama.
 
 ## Format Data User (TXT)
-File `users.txt` menggunakan format per baris:
+File `data/users.txt` menggunakan format per baris:
 
 `nama|username|password`
 
