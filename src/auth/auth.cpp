@@ -1,5 +1,6 @@
 ﻿#include "auth/auth.h"
 
+#include <cstdlib>
 #include <iostream>
 
 #include "data_store.h"
@@ -72,32 +73,54 @@ bool buatAkunPasienOlehDokter(AppData& data, const string& userFilePath) {
 }
 
 int loginPasien(const AppData& data) {
-    cout << "\n--- LOGIN PASIEN ---\n";
-    string username = inputBaris("Username : ");
-    string password = inputBaris("Password : ");
+    const int MAX_LOGIN_ATTEMPTS = 3;
 
-    for (int i = 0; i < data.userCount; i++) {
-        if (data.users[i].username == username && data.users[i].password == password) {
-            cout << "\n[SUKSES] Login pasien berhasil.\n";
-            return i;
+    for (int percobaan = 1; percobaan <= MAX_LOGIN_ATTEMPTS; percobaan++) {
+        cout << "\n--- LOGIN PASIEN ---\n";
+        string username = inputBaris("Username : ");
+        string password = inputBaris("Password : ");
+
+        for (int i = 0; i < data.userCount; i++) {
+            if (data.users[i].username == username && data.users[i].password == password) {
+                cout << "\n[SUKSES] Login pasien berhasil.\n";
+                return i;
+            }
+        }
+
+        int sisaPercobaan = MAX_LOGIN_ATTEMPTS - percobaan;
+        cout << "\n[ERROR] Login pasien gagal. Username/password salah.\n";
+        if (sisaPercobaan > 0) {
+            cout << "[INFO] Sisa percobaan login pasien: " << sisaPercobaan << "\n";
         }
     }
 
-    cout << "\n[ERROR] Login pasien gagal. Username/password salah.\n";
+    cout << "\n[ERROR] Percobaan login pasien melebihi 3 kali. Program akan keluar.\n";
+    exit(0);
     return -1;
 }
 
 bool loginDokter() {
-    cout << "\n--- LOGIN DOKTER ---\n";
-    string username = inputBaris("Username : ");
-    string password = inputBaris("Password : ");
+    const int MAX_LOGIN_ATTEMPTS = 3;
 
-    if (username == DOKTER_USERNAME && password == DOKTER_PASSWORD) {
-        cout << "\n[SUKSES] Login dokter berhasil.\n";
-        return true;
+    for (int percobaan = 1; percobaan <= MAX_LOGIN_ATTEMPTS; percobaan++) {
+        cout << "\n--- LOGIN DOKTER ---\n";
+        string username = inputBaris("Username : ");
+        string password = inputBaris("Password : ");
+
+        if (username == DOKTER_USERNAME && password == DOKTER_PASSWORD) {
+            cout << "\n[SUKSES] Login dokter berhasil.\n";
+            return true;
+        }
+
+        int sisaPercobaan = MAX_LOGIN_ATTEMPTS - percobaan;
+        cout << "\n[ERROR] Login dokter gagal. Username/password salah.\n";
+        if (sisaPercobaan > 0) {
+            cout << "[INFO] Sisa percobaan login dokter: " << sisaPercobaan << "\n";
+        }
     }
 
-    cout << "\n[ERROR] Login dokter gagal. Username/password salah.\n";
+    cout << "\n[ERROR] Percobaan login dokter melebihi 3 kali. Program akan keluar.\n";
+    exit(0);
     return false;
 }
 
