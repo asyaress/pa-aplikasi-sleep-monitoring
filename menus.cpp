@@ -658,9 +658,10 @@ void menuDokter(AppData& data, const string& userFilePath) {
     do {
         cout << "\n========== MENU DOKTER ==========";
         cout << "\n1. Buat akun pasien";
-        cout << "\n2. Lihat jumlah pasien";
+        cout << "\n2. Lihat Riwayat pasien";
         cout << "\n3. Lihat daftar pasien";
-        cout << "\n4. Logout";
+        cout << "\n4. Hapus Akun Pasien";
+        cout << "\n5. Logout";
         cout << "\nPilihan: ";
         cin >> pilihan;
 
@@ -678,17 +679,20 @@ void menuDokter(AppData& data, const string& userFilePath) {
                 buatAkunPasienOlehDokter(data, userFilePath);
                 break;
             case 2:
-                cout << "\nTotal pasien terdaftar: " << data.userCount << "\n";
+                cout << "\nFitur lihat riwayat pasien belum tersedia.\n";
                 break;
             case 3:
                 tampilkanDaftarPasienSingkat(data);
                 break;
             case 4:
+                cout << "\nFitur hapus akun pasien belum tersedia.\n";
+                break;
+            case 5:
                 cout << "\nLogout dokter berhasil.\n";
                 break;
             default:
                 cout << "\n[ERROR] Menu tidak tersedia.\n";
                 break;
         }
-    } while (pilihan != 4);
+    } while (pilihan != 5);
 }
